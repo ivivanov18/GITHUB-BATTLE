@@ -1,4 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
+
+LanguagesNav.propTypes = {
+  selected: PropTypes.string.isRequired,
+  onSelectLanguage: PropTypes.func.isRequired
+};
 
 function LanguagesNav({ onSelectLanguage, selected }) {
   const languages = [
