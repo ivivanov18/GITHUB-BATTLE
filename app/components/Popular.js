@@ -1,24 +1,26 @@
 import React, { Component } from "react";
+
+import LanguagesNav from "./LanguagesNav";
+
 class Popular extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedLanguage: "All"
+    };
+    this.updateLanguage = this.updateLanguage.bind(this);
+  }
+
+  updateLanguage(selectedLanguage) {
+    this.setState({ selectedLanguage });
+  }
+
   render() {
-    const languages = [
-      "All",
-      "Javascript",
-      "Ruby",
-      "Java",
-      "CSS",
-      "Python",
-      "PHP",
-      "Shell"
-    ];
     return (
-      <ul className="flex-center">
-        {languages.map(language => (
-          <li className="btn-clear nav-link" key="language">
-            {language}
-          </li>
-        ))}
-      </ul>
+      <LanguagesNav
+        onSelectLanguage={this.updateLanguage}
+        selected={this.state.selectedLanguage}
+      />
     );
   }
 }
