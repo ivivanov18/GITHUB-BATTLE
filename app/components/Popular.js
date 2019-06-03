@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import LanguagesNav from "./LanguagesNav";
+import ReposGrid from "./ReposGrid";
 
 import { fetchPopularRepos } from "../utils/api";
 
@@ -60,7 +61,7 @@ class Popular extends Component {
         {this.isLoading() && <p>Loading...</p>}
         {error && <p>{error}</p>}
         {repos[selectedLanguage] && (
-          <pre>{JSON.stringify(repos[selectedLanguage], null, 2)}</pre>
+          <ReposGrid repos={repos[selectedLanguage]} />
         )}
       </React.Fragment>
     );
