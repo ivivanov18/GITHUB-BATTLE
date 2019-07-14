@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { battle } from "../utils/api";
 import Card from "./Card";
 import ProfileList from "./ProfileList";
+import Loading from "./Loading";
 
 function Results({ playerOne, playerTwo, onReset }) {
   const [winner, setWinner] = useState(null);
@@ -24,7 +25,7 @@ function Results({ playerOne, playerTwo, onReset }) {
   }, []);
 
   if (isLoading) {
-    return <div>Loading</div>;
+    return <Loading />;
   }
 
   if (error) {
