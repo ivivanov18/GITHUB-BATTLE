@@ -11,8 +11,20 @@ function Battle() {
 
   const submitName = evt => {};
 
+  const resetBattle = () => {
+    setPlayerOne("");
+    setPlayerTwo("");
+    setBattle(false);
+  };
+
   if (battle === true) {
-    return <Results playerOne={playerOne} playerTwo={playerTwo} />;
+    return (
+      <Results
+        playerOne={playerOne}
+        playerTwo={playerTwo}
+        onReset={resetBattle}
+      />
+    );
   }
 
   return (

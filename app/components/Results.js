@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { battle } from "../utils/api";
-import {
-  FaCompass,
-  FaBriefcase,
-  FaUsers,
-  FaUserFriends,
-  FaCode,
-  FaUser
-} from "react-icons/fa";
+import Card from "./Card";
+import ProfileList from "./ProfileList";
 
-function Results({ playerOne, playerTwo }) {
+function Results({ playerOne, playerTwo, onReset }) {
   const [winner, setWinner] = useState(null);
   const [looser, setLooser] = useState(null);
   const [error, setError] = useState(null);
@@ -38,92 +32,31 @@ function Results({ playerOne, playerTwo }) {
   }
 
   return (
-    <div className="grid space-around container-sm">
-      <div className="card bg-light">
-        <h4 className="header-lg center-text">
-          {winner.score === looser.score ? "Tie" : "Winner"}
-        </h4>
-        <img
-          className="avatar"
-          src={winner.profile.avatar_url}
-          alt={`Avatar fo ${winner.profile.login}`}
-        />
-        <h4 className="center-text">Score: {winner.score.toLocaleString()}</h4>
-        <h2 className="center-text">
-          <a className="link" href={winner.profile.html_url}>
-            {winner.profile.login}
-          </a>
-        </h2>
-        <ul className="card-list">
-          <li>
-            <FaUser color="rgb(239,115,115)" size={22} />
-            {winner.profile.name}
-          </li>
-          {winner.profile.location && (
-            <li>
-              <FaCompass color="rgb(144,115,225)" size={22} />
-              {winner.profile.location}
-            </li>
-          )}
-          {winner.profile.company && (
-            <li>
-              <FaBriefcase color="#795548" size={22} />
-              {winner.profile.company}
-            </li>
-          )}
-          <li>
-            <FaUsers color="rgb(129,199,245)" size={22} />
-            {winner.profile.followers.toLocaleString()} followers
-          </li>
-          <li>
-            <FaUserFriends color="rgb(64,195,1833)" size={22} />
-            {winner.profile.following.toLocaleString()} following
-          </li>
-        </ul>
+    <React.Fragment>
+      <div className="grid space-around container-sm">
+        <Card
+          header={winner.score === looser.score ? "Tie" : "Winner"}
+          subheader={winner.score.toLocaleString()}
+          avatar={winner.profile.avatar_url}
+          href={winner.profile.html_url}
+          name={winner.profile.login}
+        >
+          <ProfileList profile={winner.profile} />
+        </Card>
+        <Card
+          header={winner.score === looser.score ? "Tie" : "Looser"}
+          subheader={looser.score.toLocaleString()}
+          avatar={looser.profile.avatar_url}
+          href={looser.profile.html_url}
+          name={looser.profile.login}
+        >
+          <ProfileList profile={looser.profile} />
+        </Card>
       </div>
-      <div className="card bg-light">
-        <h4 className="header-lg center-text">
-          {winner.score === looser.score ? "Tie" : "Looser"}
-        </h4>
-        <img
-          className="avatar"
-          src={looser.profile.avatar_url}
-          alt={`Avatar fo ${looser.profile.login}`}
-        />
-        <h4 className="center-text">Score: {looser.score.toLocaleString()}</h4>
-        <h2 className="center-text">
-          <a className="link" href={looser.profile.html_url}>
-            {looser.profile.login}
-          </a>
-        </h2>
-        <ul className="card-list">
-          <li>
-            <FaUser color="rgb(239,115,115)" size={22} />
-            {looser.profile.name}
-          </li>
-          {looser.profile.location && (
-            <li>
-              <FaCompass color="rgb(144,115,225)" size={22} />
-              {looser.profile.location}
-            </li>
-          )}
-          {looser.profile.company && (
-            <li>
-              <FaBriefcase color="#795548" size={22} />
-              {looser.profile.company}
-            </li>
-          )}
-          <li>
-            <FaUsers color="rgb(129,199,245)" size={22} />
-            {looser.profile.followers.toLocaleString()} followers
-          </li>
-          <li>
-            <FaUserFriends color="rgb(64,195,1833)" size={22} />
-            {looser.profile.following.toLocaleString()} following
-          </li>
-        </ul>
-      </div>
-    </div>
+      <button className="btn dark-btn btn-space" onClick={() => onReset()}>
+        Battle again
+      </button>
+    </React.Fragment>
   );
 }
 

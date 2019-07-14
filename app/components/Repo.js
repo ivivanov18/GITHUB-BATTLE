@@ -5,6 +5,7 @@ import {
   FaCodeBranch,
   FaExclamationTriangle
 } from "react-icons/fa";
+import Card from "./Card";
 
 function Repo({
   index,
@@ -16,14 +17,12 @@ function Repo({
   open_issues
 }) {
   return (
-    <li className="card bg-light">
-      <h4 className="header-lg center-text">#{index + 1}</h4>
-      <img className="avatar" src={avatar_url} alt={`Avatar for ${login}`} />
-      <h2 className="center-text">
-        <a className="link" href={html_url}>
-          {login}
-        </a>
-      </h2>
+    <Card
+     header={`#${index + 1}`}
+     avatar={avatar_url}
+     href={html_url}
+     name={login}
+     >
       <ul className="card-list">
         <li>
           <FaUser color="rgb(255, 191, 116)" size={22} />
@@ -42,7 +41,7 @@ function Repo({
           {open_issues.toLocaleString()} open issues
         </li>
       </ul>
-    </li>
+    </Card>
   );
 }
 
