@@ -69,4 +69,4 @@ function withHover(InnerComponent, propName = "hovering") {
   };
 }
 
-export default withHover(Tooltip);
+export default withHover(Tooltip, "hovering");
