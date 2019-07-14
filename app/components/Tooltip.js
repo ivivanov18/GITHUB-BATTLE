@@ -22,7 +22,16 @@ const styles = {
   }
 };
 
-function Tooltip({ text, children }) {
+function Tooltip({ text, children, hovering }) {
+  return (
+    <React.Fragment>
+      {hovering && <div style={styles.tooltip}>{text}</div>}
+      {children}
+    </React.Fragment>
+  );
+}
+
+function useHover() {
   const [hovering, setHovering] = useState(false);
 
   const mouseOut = () => {
@@ -33,12 +42,31 @@ function Tooltip({ text, children }) {
     setHovering(true);
   };
 
-  return (
-    <div onMouseOver={mouseOver} onMouseOut={mouseOut} style={styles.container}>
-      {hovering && <div style={styles.tooltip}>{text}</div>}
-      {children}
-    </div>
-  );
+  return {
+    hovering,
+    mouseOut,
+    mouseOver
+  };
 }
 
-export default Tooltip;
+function withHover(InnerComponent, propName = "hovering") {
+  return function(props) {
+    const { hovering, mouseOut, mouseOver } = useHover();
+
+    const newProps = {
+      [propName]: hovering,
+      ...props
+    };
+    return (
+      <div
+        onMouseOver={mouseOver}
+        onMouseOut={mouseOut}
+        style={styles.container}
+      >
+        <InnerComponent {...newProps} />
+      </div>
+    );
+  };
+}
+
+export default withHover(Tooltip);
