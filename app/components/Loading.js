@@ -8,7 +8,9 @@ const styles = {
     left: 0,
     right: 0,
     marginTop: "20px",
-    textAlign: "center"
+    textAlign: "center",
+    width: "100%",
+    height: "100%"
   }
 };
 class Loading extends Component {

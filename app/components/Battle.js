@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Instructions from "./Instructions";
 import PlayerInput from "./PlayerInput";
 import PlayerPreview from "./PlayerPreview";
 import Results from "./Results";
+import ThemeToggler from "./ThemeToggler";
+import { ThemeContext } from "./theme";
 
 function Battle() {
   const [playerOne, setPlayerOne] = useState("");
   const [playerTwo, setPlayerTwo] = useState("");
   const [battle, setBattle] = useState(false);
+  const { theme } = useContext(ThemeContext);
 
   const submitName = evt => {};
 
@@ -68,7 +71,9 @@ function Battle() {
         </div>
         {playerOne && playerTwo && (
           <button
-            className="btn dark-btn btn-space"
+            className={`btn btn-space ${
+              theme === "light" ? "light-btn" : "dark-btn"
+            }`}
             onClick={() => setBattle(true)}
           >
             Battle

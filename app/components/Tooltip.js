@@ -22,10 +22,10 @@ const styles = {
   }
 };
 
-function Tooltip({ text, children, hovering }) {
+function Tooltip({ text, children, hover }) {
   return (
     <React.Fragment>
-      {hovering && <div style={styles.tooltip}>{text}</div>}
+      {hover && <div style={styles.tooltip}>{text}</div>}
       {children}
     </React.Fragment>
   );
@@ -69,4 +69,4 @@ function withHover(InnerComponent, propName = "hovering") {
   };
 }
 
-export default withHover(Tooltip, "hovering");
+export default withHover(Tooltip, "hover");

@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { ThemeContext } from "./theme";
 
 function PlayerInput({ label, onSubmit }) {
   const [input, setInput] = useState("");
+  const { theme } = useContext(ThemeContext);
 
   const handleInput = event => {
     event.preventDefault();
@@ -18,12 +20,16 @@ function PlayerInput({ label, onSubmit }) {
           value={input}
           type="text"
           id="username"
-          className="input-light"
+          className={theme === "light" ? "input-light" : "input-dark"}
           placeholder="github username"
           autoComplete="off"
           onChange={evt => setInput(evt.target.value)}
         />
-        <button className="btn dark-btn" type="submit" disabled={!input}>
+        <button
+          className={`btn ${theme === "dark" ? "light-btn" : "dark-btn"}`}
+          type="submit"
+          disabled={!input}
+        >
           Submit
         </button>
       </div>
